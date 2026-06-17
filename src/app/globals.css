@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Default theme. lib/theme.ts injects a :root override per admin settings. */
+  --color-cream: 247 243 236;
+  --color-sand: 239 231 216;
+  --color-bark: 59 50 40;
+  --color-ink: 36 31 24;
+  --color-moss-50: 241 245 238;
+  --color-moss-100: 221 232 212;
+  --color-moss-200: 188 211 170;
+  --color-moss-300: 149 185 124;
+  --color-moss-400: 115 156 87;
+  --color-moss-500: 87 127 63;
+  --color-moss-600: 67 99 48;
+  --color-moss-700: 54 78 40;
+  --color-moss-800: 44 62 34;
+  --color-moss-900: 38 52 31;
+  --color-clay-400: 201 138 94;
+  --color-clay-500: 181 113 63;
+  --color-clay-600: 154 90 46;
+  --radius-btn: 9999px;
+  --radius-card: 1rem;
+  --radius-field: 0.75rem;
+  --container-max: 72rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream text-bark font-sans antialiased;
+  }
+  ::selection {
+    @apply bg-moss-200 text-bark;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full px-5 sm:px-8;
+    max-width: var(--container-max);
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-moss-400/60 disabled:opacity-50;
+    border-radius: var(--radius-btn);
+  }
+  .btn-primary {
+    @apply btn bg-moss-600 text-cream hover:bg-moss-700;
+  }
+  .btn-coffee {
+    @apply btn bg-clay-500 text-cream hover:bg-clay-600;
+  }
+  .btn-ghost {
+    @apply btn border border-bark/15 bg-transparent text-bark hover:bg-bark/5;
+  }
+  .card {
+    @apply border border-bark/10 bg-white/70 shadow-soft transition;
+    border-radius: var(--radius-card);
+  }
+  .field {
+    @apply w-full border border-bark/15 bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition focus:border-moss-400 focus:ring-2 focus:ring-moss-200;
+    border-radius: var(--radius-field);
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-bark/80;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-moss-600;
+  }
+}
+
+/* Markdown post body */
+.prose {
+  @apply leading-relaxed text-bark/90;
+}
+.prose h2 {
+  @apply mt-10 mb-3 font-serif text-2xl font-semibold text-ink;
+}
+.prose h3 {
+  @apply mt-8 mb-2 font-serif text-xl font-semibold text-ink;
+}
+.prose p {
+  @apply my-4;
+}
+.prose a {
+  @apply text-moss-600 underline underline-offset-2 hover:text-moss-700;
+}
+.prose ul {
+  @apply my-4 list-disc space-y-1 pl-6;
+}
+.prose ol {
+  @apply my-4 list-decimal space-y-1 pl-6;
+}
+.prose blockquote {
+  @apply my-5 border-l-4 border-moss-300 pl-4 italic text-bark/70;
+}
+.prose img {
+  @apply my-6 rounded-xl;
+}
+.prose code {
+  @apply rounded bg-bark/5 px-1.5 py-0.5 text-sm;
+}
+.prose pre {
+  @apply my-5 overflow-x-auto rounded-xl bg-ink p-4 text-sm text-cream;
+}
+.prose pre code {
+  @apply bg-transparent p-0;
+}
