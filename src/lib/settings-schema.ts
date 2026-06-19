@@ -127,6 +127,7 @@ export const SETTINGS_SCHEMA: SettingField[] = [
   { key: "hero_cta1_url", label: "Primary button link", type: "text", group: "home", default: "/projects" },
   { key: "hero_cta2_label", label: "Secondary button label", type: "text", group: "home", default: "About me" },
   { key: "hero_cta2_url", label: "Secondary button link", type: "text", group: "home", default: "/about" },
+  { key: "hero_photo", label: "Hero photo", type: "text", group: "home", default: "", placeholder: "/uploads/your-photo.jpg", help: "Upload a photo via the panel below the settings form, or paste any /uploads/… path." },
   { key: "hero_card_title", label: "Hero card — line 1", type: "text", group: "home", default: "Engineer by trade." },
   { key: "hero_card_subtitle", label: "Hero card — line 2", type: "text", group: "home", default: "Builder by nature." },
   {

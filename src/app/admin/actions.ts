@@ -243,6 +243,22 @@ export async function deleteMessage(formData: FormData) {
   redirect("/admin/messages");
 }
 
+// ---------------- Hero photo ----------------
+export async function uploadHeroPhoto(formData: FormData) {
+  await requireAuth();
+  if (formData.get("clear")) {
+    setSetting("hero_photo", "");
+    revalidateAll();
+    redirect("/admin/settings?saved=1");
+  }
+  const file = formData.get("hero_photo_file") as File | null;
+  if (!file || file.size === 0) redirect("/admin/settings");
+  const url = await saveImage(file);
+  setSetting("hero_photo", url);
+  revalidateAll();
+  redirect("/admin/settings?saved=1");
+}
+
 // ---------------- Resume ----------------
 export async function uploadResume(formData: FormData) {
   await requireAuth();

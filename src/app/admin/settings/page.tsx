@@ -5,6 +5,7 @@ import AppearancePanel from "@/components/admin/AppearancePanel";
 import SettingsAutosave from "@/components/admin/SettingsAutosave";
 import BackupPanel from "@/components/admin/BackupPanel";
 import ResumeUploadPanel from "@/components/admin/ResumeUploadPanel";
+import HeroPhotoPanel from "@/components/admin/HeroPhotoPanel";
 import {
   SETTINGS_SCHEMA,
   SETTING_DEFAULTS,
@@ -79,7 +80,8 @@ export default async function AdminSettingsPage({
         {sections}
       </SettingsAutosave>
 
-      <div className="mt-8">
+      <div className="mt-8 space-y-6">
+        <HeroPhotoPanel currentUrl={val("hero_photo")} />
         <ResumeUploadPanel currentUrl={val("resume_url")} />
       </div>
     </div>

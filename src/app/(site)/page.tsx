@@ -54,6 +54,15 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col gap-4 lg:col-span-5">
+            {s.hero_photo && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={s.hero_photo}
+                alt="Hero photo"
+                className="w-full object-cover shadow-soft"
+                style={{ borderRadius: "var(--radius-card)", maxHeight: "22rem" }}
+              />
+            )}
             {isOn(s, "show_hero_photos") && heroPhotos.length > 0 && (
               <PhotoGrid photos={heroPhotos} layout="hero" />
             )}
