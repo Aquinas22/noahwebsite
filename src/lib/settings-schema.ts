@@ -141,6 +141,7 @@ export const SETTINGS_SCHEMA: SettingField[] = [
   { key: "home_projects_title", label: "Projects section heading", type: "text", group: "home", default: "Featured projects" },
   { key: "home_websites_title", label: "Websites section heading", type: "text", group: "home", default: "Websites I've built" },
   { key: "home_posts_title", label: "Journal section heading", type: "text", group: "home", default: "Latest writing" },
+  { key: "home_photos_title", label: "Photos section heading", type: "text", group: "home", default: "Recent photos" },
 
   // ---- About page ----
   { key: "about_heading", label: "About heading", type: "text", group: "about", default: "A little about Noah" },
@@ -186,6 +187,8 @@ export const SETTINGS_SCHEMA: SettingField[] = [
   { key: "show_blog", label: "Show Journal", type: "toggle", group: "nav", default: "1" },
   { key: "nav_gallery_label", label: "Photos label", type: "text", group: "nav", default: "Photos" },
   { key: "show_gallery", label: "Show Photos", type: "toggle", group: "nav", default: "1" },
+  { key: "show_home_photos", label: "Show photos on home page", type: "toggle", group: "nav", default: "1" },
+  { key: "show_hero_photos", label: "Show photos in hero (next to intro)", type: "toggle", group: "nav", default: "0" },
   { key: "nav_contact_label", label: "Contact label", type: "text", group: "nav", default: "Contact" },
   { key: "show_contact", label: "Show Contact", type: "toggle", group: "nav", default: "1" },
 

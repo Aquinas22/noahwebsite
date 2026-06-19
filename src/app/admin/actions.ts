@@ -243,6 +243,17 @@ export async function deleteMessage(formData: FormData) {
   redirect("/admin/messages");
 }
 
+// ---------------- Resume ----------------
+export async function uploadResume(formData: FormData) {
+  await requireAuth();
+  const file = formData.get("resume") as File | null;
+  if (!file || file.size === 0) redirect("/admin/settings");
+  const url = await saveImage(file);
+  setSetting("resume_url", url);
+  revalidateAll();
+  redirect("/admin/settings?saved=1");
+}
+
 // ---------------- Settings ----------------
 export async function saveSettings(formData: FormData) {
   await requireAuth();

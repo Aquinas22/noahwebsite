@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import crypto from "node:crypto";
 
 const UPLOAD_DIR = path.join(process.cwd(), "data", "uploads");
-const ALLOWED = new Set([".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif"]);
+const ALLOWED = new Set([".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif", ".pdf"]);
 
 /**
  * Persists an uploaded image file to data/uploads and returns its public path
@@ -16,8 +16,8 @@ export async function saveImage(file: File | null): Promise<string> {
   if (!ALLOWED.has(ext)) {
     throw new Error(`Unsupported file type: ${ext || "unknown"}`);
   }
-  if (file.size > 12 * 1024 * 1024) {
-    throw new Error("Image too large (max 12 MB).");
+  if (file.size > 20 * 1024 * 1024) {
+    throw new Error("File too large (max 20 MB).");
   }
 
   await fs.mkdir(UPLOAD_DIR, { recursive: true });

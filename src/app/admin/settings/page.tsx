@@ -4,6 +4,7 @@ import PageTitle from "@/components/admin/PageTitle";
 import AppearancePanel from "@/components/admin/AppearancePanel";
 import SettingsAutosave from "@/components/admin/SettingsAutosave";
 import BackupPanel from "@/components/admin/BackupPanel";
+import ResumeUploadPanel from "@/components/admin/ResumeUploadPanel";
 import {
   SETTINGS_SCHEMA,
   SETTING_DEFAULTS,
@@ -77,6 +78,10 @@ export default async function AdminSettingsPage({
       >
         {sections}
       </SettingsAutosave>
+
+      <div className="mt-8">
+        <ResumeUploadPanel currentUrl={val("resume_url")} />
+      </div>
     </div>
   );
 }

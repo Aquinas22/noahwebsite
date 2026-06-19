@@ -11,6 +11,7 @@ const ITEMS = [
   { href: "/admin/photos", label: "Photos" },
   { href: "/admin/messages", label: "Messages" },
   { href: "/admin/settings", label: "Settings" },
+  { href: "/admin/help", label: "Help" },
 ];
 
 export default function AdminNav({ logout, unread = 0 }: { logout: () => void; unread?: number }) {

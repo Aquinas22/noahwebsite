@@ -1,5 +1,6 @@
 import { getPhotos } from "@/lib/content";
 import PageHeader from "@/components/PageHeader";
+import PhotoGrid from "@/components/PhotoGrid";
 
 export const metadata = { title: "Photos" };
 
@@ -19,19 +20,7 @@ export default function GalleryPage() {
             <p className="text-sm text-bark/60">Upload your first photos from the admin dashboard.</p>
           </div>
         ) : (
-          <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
-            {photos.map((ph) => (
-              <figure key={ph.id} className="break-inside-avoid overflow-hidden rounded-2xl border border-bark/10 bg-white shadow-soft">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={ph.src} alt={ph.caption || "Photo"} className="w-full" />
-                {ph.caption && (
-                  <figcaption className="px-4 py-3 text-sm text-bark/65">
-                    {ph.caption}
-                  </figcaption>
-                )}
-              </figure>
-            ))}
-          </div>
+          <PhotoGrid photos={photos} layout="masonry" />
         )}
       </div>
     </>

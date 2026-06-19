@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { getSettings } from "@/lib/settings";
 import { isOn } from "@/lib/settings-schema";
-import { getProjects, getPosts, getWebsites } from "@/lib/content";
+import { getProjects, getPosts, getWebsites, getPhotos } from "@/lib/content";
 import ProjectCard from "@/components/ProjectCard";
+import PhotoGrid from "@/components/PhotoGrid";
 
 function Cta({ href, label, className }: { href: string; label: string; className: string }) {
   if (!label) return null;
@@ -30,6 +31,9 @@ export default function Home() {
   ).slice(0, 3);
   const posts = getPosts({ publishedOnly: true }).slice(0, 3);
   const websites = getWebsites().slice(0, 3);
+  const photos = getPhotos();
+  const heroPhotos = photos.slice(0, 4);
+  const homePhotos = photos.slice(0, 6);
 
   return (
     <>
@@ -49,7 +53,10 @@ export default function Home() {
               <Cta href={s.hero_cta2_url} label={s.hero_cta2_label} className="btn-ghost" />
             </div>
           </div>
-          <div className="lg:col-span-5">
+          <div className="flex flex-col gap-4 lg:col-span-5">
+            {isOn(s, "show_hero_photos") && heroPhotos.length > 0 && (
+              <PhotoGrid photos={heroPhotos} layout="hero" />
+            )}
             <div
               className="bg-ink p-8 text-cream shadow-soft"
               style={{ borderRadius: "var(--radius-card)" }}
@@ -112,13 +119,19 @@ export default function Home() {
                 href={w.url || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="card group flex flex-col p-5 hover:-translate-y-0.5 hover:shadow-lg"
+                className="card group flex flex-col overflow-hidden hover:-translate-y-0.5 hover:shadow-lg"
               >
-                <p className="font-serif text-lg font-semibold text-ink group-hover:text-moss-700">
-                  {w.title}
-                </p>
-                <p className="mt-1 line-clamp-2 text-sm text-bark/65">{w.description}</p>
-                <span className="mt-4 text-sm font-medium text-moss-600">Visit ↗</span>
+                {w.image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={w.image} alt={w.title} className="h-40 w-full object-cover" />
+                )}
+                <div className="flex flex-col p-5">
+                  <p className="font-serif text-lg font-semibold text-ink group-hover:text-moss-700">
+                    {w.title}
+                  </p>
+                  <p className="mt-1 line-clamp-2 text-sm text-bark/65">{w.description}</p>
+                  <span className="mt-4 text-sm font-medium text-moss-600">Visit ↗</span>
+                </div>
               </a>
             ))}
           </div>
@@ -155,6 +168,26 @@ export default function Home() {
                 </div>
               </Link>
             ))}
+          </div>
+        </section>
+      )}
+
+      {/* Photos */}
+      {isOn(s, "show_home_photos") && homePhotos.length > 0 && (
+        <section className="container-page py-16 sm:py-20">
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="eyebrow">Captured moments</p>
+              <h2 className="mt-2 font-serif text-3xl font-semibold text-ink">
+                {s.home_photos_title}
+              </h2>
+            </div>
+            <Link href="/gallery" className="hidden text-sm font-medium text-moss-600 hover:text-moss-700 sm:block">
+              See all →
+            </Link>
+          </div>
+          <div className="mt-8">
+            <PhotoGrid photos={homePhotos} layout="grid" />
           </div>
         </section>
       )}

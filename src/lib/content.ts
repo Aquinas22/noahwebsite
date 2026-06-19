@@ -1,5 +1,11 @@
 import { getDb } from "./db";
 
+// node:sqlite rows have null prototypes; spread them into plain objects so
+// Next.js can serialize them across the server→client boundary.
+function rows<T>(raw: unknown[]): T[] {
+  return raw.map((r) => ({ ...(r as T) }));
+}
+
 export type Post = {
   id: number;
   title: string;
@@ -55,9 +61,9 @@ export type Message = {
 // ---- Posts ----
 export function getPosts(opts: { publishedOnly?: boolean } = {}): Post[] {
   const where = opts.publishedOnly ? "WHERE published = 1" : "";
-  return getDb()
+  return rows<Post>(getDb()
     .prepare(`SELECT * FROM posts ${where} ORDER BY created_at DESC`)
-    .all() as Post[];
+    .all());
 }
 
 export function getPostBySlug(slug: string): Post | undefined {
@@ -74,9 +80,9 @@ export function getPostById(id: number): Post | undefined {
 
 // ---- Projects ----
 export function getProjects(): Project[] {
-  return getDb()
+  return rows<Project>(getDb()
     .prepare("SELECT * FROM projects ORDER BY sort ASC, created_at DESC")
-    .all() as Project[];
+    .all());
 }
 
 export function getProjectById(id: number): Project | undefined {
@@ -87,9 +93,9 @@ export function getProjectById(id: number): Project | undefined {
 
 // ---- Websites ----
 export function getWebsites(): Website[] {
-  return getDb()
+  return rows<Website>(getDb()
     .prepare("SELECT * FROM websites ORDER BY sort ASC, created_at DESC")
-    .all() as Website[];
+    .all());
 }
 
 export function getWebsiteById(id: number): Website | undefined {
@@ -100,9 +106,9 @@ export function getWebsiteById(id: number): Website | undefined {
 
 // ---- Photos ----
 export function getPhotos(): Photo[] {
-  return getDb()
+  return rows<Photo>(getDb()
     .prepare("SELECT * FROM photos ORDER BY sort ASC, created_at DESC")
-    .all() as Photo[];
+    .all());
 }
 
 export function getPhotoById(id: number): Photo | undefined {
@@ -113,9 +119,9 @@ export function getPhotoById(id: number): Photo | undefined {
 
 // ---- Messages ----
 export function getMessages(): Message[] {
-  return getDb()
+  return rows<Message>(getDb()
     .prepare("SELECT * FROM messages ORDER BY created_at DESC")
-    .all() as Message[];
+    .all());
 }
 
 export function getUnreadMessageCount(): number {
